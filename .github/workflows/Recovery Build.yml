@@ -94,7 +94,7 @@ jobs:
         repo sync -j$(nproc --all) --force-sync
       working-directory: workspace
 
-        - name: Clone device tree
+    - name: Clone device tree
       run: |
         mkdir -p device/xiaomi/goya
         git clone https://github.com/DanyDany32/android_device_xiaomi_goya.git -b main device/xiaomi/goya

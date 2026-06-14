@@ -111,17 +111,17 @@ jobs:
         make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
-    - name: Upload to Release
+    - name: Cerca i file
       run: |
-        echo "Contenuto della cartella di output:"
-        find workspace/out/target/product/ -name "*.img"
+        echo "Cerco tutti i file .img nel sistema:"
+        find . -name "*.img"
 
     - name: Final Upload
       uses: softprops/action-gh-release@v2
       with:
         files: | 
-          workspace/out/target/product/**/*.img
-          workspace/out/target/product/**/*.zip
+          out/target/product/goya/*.img
+          out/target/product/goya/*.zip
         name: ${{ github.event.inputs.DEVICE_NAME }}-${{ github.run_id }}
         tag_name: ${{ github.run_id }}
         body: |

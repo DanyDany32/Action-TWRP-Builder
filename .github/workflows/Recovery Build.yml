@@ -94,11 +94,12 @@ jobs:
         repo sync -j$(nproc --all) --force-sync
       working-directory: workspace
 
-    - name: Clone device tree
+        - name: Clone device tree
       run: |
-        rm -rf ${{ github.event.inputs.DEVICE_PATH }}
-        git clone ${{ github.event.inputs.DEVICE_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.DEVICE_PATH }}
+        mkdir -p device/xiaomi/goya
+        git clone https://github.com/DanyDany32/android_device_xiaomi_goya.git -b main device/xiaomi/goya
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+
 
     - name: Building recovery
       run: |

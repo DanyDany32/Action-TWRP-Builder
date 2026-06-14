@@ -104,13 +104,13 @@ jobs:
     - name: Building recovery
       run: |
         source build/envsetup.sh
-        export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
-        # Puliamo tutto per essere sicuri
-        rm -rf out/
-        # Lanciamo il comando specifico per generare la vendor_boot
-        make clean
-        make vendorbootimage -j4
+        lunch omni_goya-eng
+        # Lanciamo la build e scriviamo tutto quello che succede in un file di log
+        mka vendorbootimage > build_log.txt 2>&1
+        # Ora cerchiamo il file ovunque sia stato creato
+        echo "Cerco il file ovunque:"
+        find / -name "vendor_boot.img" 2>/dev/null
+        find / -name "vendorboot.img" 2>/dev/null
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Cerca i file

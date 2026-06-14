@@ -106,9 +106,11 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng
+        # Puliamo tutto per essere sicuri
+        rm -rf out/
+        # Lanciamo il comando specifico per generare la vendor_boot
         make clean
         make vendorbootimage -j4
-        make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
       working-directory: ${{ steps.pwd.outputs.workspace-folder }}
 
     - name: Cerca i file
